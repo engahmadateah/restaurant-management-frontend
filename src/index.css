@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* ===================================================================
+   هوية بصرية جديدة — "قصر زيتون": فخامة نبيذية/ذهبية بإحساس مطعم راقي.
+   Amiri (خط عربي كلاسيكي منحوت) للعناوين والشعار، Cairo لنصوص
+   الواجهة، IBM Plex Mono للأرقام/البيانات حتى تبقى مصطفة بالجداول.
+   =================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+@theme {
+  /* ---------- الخلفية: ورق عاجي دافئ ---------- */
+  --color-paper: #f8f3e9;
+  --color-paper-dim: #efe4cd;
+  --color-ink: #241811;
+  --color-ink-soft: #6f5d4d;
+
+  /* ---------- نبيذي (Wine) — الواجهة الداكنة والتمييز ---------- */
+  --color-wine-50: #f8eeee;
+  --color-wine-100: #ecd8da;
+  --color-wine-200: #d9adb2;
+  --color-wine-300: #bb7f88;
+  --color-wine-400: #97505f;
+  --color-wine-500: #7a3345;
+  --color-wine-600: #642539;
+  --color-wine-700: #4d1c2c;
+  --color-wine-800: #3a1522;
+  --color-wine-900: #2b0f19;
+  --color-wine-950: #1c0a10;
+
+  /* ---------- ذهبي عتيق — لمسة الفخامة ---------- */
+  --color-gold-100: #f3e6c4;
+  --color-gold-300: #e3c67e;
+  --color-gold-500: #c19a4b;
+  --color-gold-600: #a87f38;
+
+  --color-success: #3f6b45;
+  --color-success-bg: #e3ecdf;
+  --color-warning: #b5791f;
+  --color-warning-bg: #f5e6ce;
+  --color-danger: #a13328;
+  --color-danger-bg: #f4dcd8;
+  --color-info: #35618a;
+  --color-info-bg: #dde7ee;
+
+  --color-line: #e6dbc6;
+
+  /* ---------- الخطوط ---------- */
+  --font-display: "Amiri", "Cairo", serif;
+  --font-sans: "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---------- زوايا أدق وأكثر رسمية ---------- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.875rem;
+
+  --shadow-soft: 0 1px 2px rgb(28 10 16 / 0.05), 0 4px 14px rgb(28 10 16 / 0.07);
+  --shadow-lift: 0 14px 34px rgb(28 10 16 / 0.18);
+  --shadow-gold: 0 0 0 3px rgb(193 154 75 / 0.18);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+  html {
+    font-feature-settings: "tnum" 1;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  /* أرقام (أسعار / أوقات / أرقام طلبات) بخط مونو ثابت العرض حتى تصطف بالجداول */
+  .tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: right; /* عمود الأرقام بيضل تحت عنوانه (يمين) حتى وهو LTR جوّا */
+  }
+
+  ::selection {
+    background: var(--color-gold-300);
+    color: var(--color-ink);
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-wine-200); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-wine-300); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
