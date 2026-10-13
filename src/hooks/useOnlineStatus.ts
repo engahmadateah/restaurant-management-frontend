@@ -9,10 +9,7 @@ function subscribe(callback: () => void) {
   };
 }
 
-/**
- * navigator.onLine بس إشارة تقريبية: false = أكيد مقطوع، لكن true ممكن يكون واصل لراوتر بدون إنترنت.
- * فالمزامنة بتعتمد على نجاح الطلبات الفعلي، مش على هالقيمة.
- */
+
 export function useOnlineStatus(): boolean {
   return useSyncExternalStore(
     subscribe,

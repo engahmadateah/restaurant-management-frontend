@@ -12,15 +12,12 @@ export function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const location = useLocation();
-  // بيرسل طلبات الكاشير المحفوظة على الجهاز لما يرجع الاتصال (بأي صفحة)
   const syncNow = useOfflineSync();
 
-  // سكّر القائمة الجانبية تلقائيًا عند التنقل (موبايل/تابلت)
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  // Ctrl+K / ⌘K يفتح البحث السريع بأي صفحة
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -33,11 +30,10 @@ export function AdminLayout() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // الحاوية الجذر h-screen + overflow-hidden: الـ <main> هو الوحيد يلي بيتحرك بالسكرول،
-  // فالـ Sidebar والـ Topbar بيضلوا ثابتين. على الشاشات الصغيرة الـ Sidebar بيصير drawer.
+ 
   return (
     <div className="flex h-screen overflow-hidden bg-[var(--color-paper)]">
-      {/* خلفية معتمة خلف الـ drawer على الموبايل */}
+      {    }
       <div
         onClick={() => setMobileOpen(false)}
         aria-hidden="true"

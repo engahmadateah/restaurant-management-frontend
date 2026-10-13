@@ -51,7 +51,7 @@ export function PayrollTab() {
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["payroll"] });
 
-  // تصدير للمحاسب بنفس فلتر الحالة المختار فوق
+  
   const exportMutation = useMutation({
     mutationFn: (format: "xlsx" | "csv") =>
       payrollApi
@@ -68,7 +68,7 @@ export function PayrollTab() {
       if (res.skipped.length) parts.push(`تم تخطي ${res.skipped.length} (عندهم كشف أصلاً بنفس الفترة)`);
       toast.success(parts.join(" — "));
 
-      // فترة بتتداخل مع كشف موجود لموظف: ما انولّد إله، ولازم المدير يعرف ليش
+  
       if (res.conflicts?.length) {
         const list = res.conflicts
           .map((c) => `${c.user} (${formatDate(c.period_start)} → ${formatDate(c.period_end)})`)
@@ -78,7 +78,6 @@ export function PayrollTab() {
         });
       }
 
-      // ورديات مفتوحة (ما بتنحسب) أو منسية (انسكرت تلقائياً) داخل الفترة: راجعها قبل الاعتماد
       if (res.warnings?.length) {
         const list = res.warnings
           .map((w) => {

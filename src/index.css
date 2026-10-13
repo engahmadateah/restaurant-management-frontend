@@ -1,20 +1,16 @@
 @import "tailwindcss";
 
-/* ===================================================================
-   هوية بصرية جديدة — "قصر زيتون": فخامة نبيذية/ذهبية بإحساس مطعم راقي.
-   Amiri (خط عربي كلاسيكي منحوت) للعناوين والشعار، Cairo لنصوص
-   الواجهة، IBM Plex Mono للأرقام/البيانات حتى تبقى مصطفة بالجداول.
-   =================================================================== */
+
 @import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @theme {
-  /* ---------- الخلفية: ورق عاجي دافئ ---------- */
+
   --color-paper: #f8f3e9;
   --color-paper-dim: #efe4cd;
   --color-ink: #241811;
   --color-ink-soft: #6f5d4d;
 
-  /* ---------- نبيذي (Wine) — الواجهة الداكنة والتمييز ---------- */
+ 
   --color-wine-50: #f8eeee;
   --color-wine-100: #ecd8da;
   --color-wine-200: #d9adb2;
@@ -27,7 +23,7 @@
   --color-wine-900: #2b0f19;
   --color-wine-950: #1c0a10;
 
-  /* ---------- ذهبي عتيق — لمسة الفخامة ---------- */
+
   --color-gold-100: #f3e6c4;
   --color-gold-300: #e3c67e;
   --color-gold-500: #c19a4b;
@@ -44,12 +40,12 @@
 
   --color-line: #e6dbc6;
 
-  /* ---------- الخطوط ---------- */
+
   --font-display: "Amiri", "Cairo", serif;
   --font-sans: "Cairo", "IBM Plex Sans Arabic", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* ---------- زوايا أدق وأكثر رسمية ---------- */
+ 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.875rem;
@@ -76,13 +72,13 @@
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
-  /* أرقام (أسعار / أوقات / أرقام طلبات) بخط مونو ثابت العرض حتى تصطف بالجداول */
+ 
   .tabular {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     direction: ltr;
     unicode-bidi: isolate;
-    text-align: right; /* عمود الأرقام بيضل تحت عنوانه (يمين) حتى وهو LTR جوّا */
+    text-align: right; 
   }
 
   ::selection {

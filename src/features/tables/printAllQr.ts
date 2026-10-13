@@ -4,11 +4,7 @@ import { getSetting } from "@/stores/settingsStore";
 import type { RestaurantTable } from "@/types/models";
 import { tableOrderUrl } from "./TableQrDialog";
 
-/**
- * بيطبع ملصقات QR لكل الطاولات + ملصق "اطلب أونلاين" (رابط /order) بنفس الدفعة.
- * لازم يتنادى مباشرة من ضغطة زر (النافذة بتنفتح قبل ما نجيب الرموز عشان المتصفح ما يمنعها).
- * بيرمي Error برسالة جاهزة للعرض.
- */
+
 export async function printAllTableQr(tables: RestaurantTable[]): Promise<void> {
   if (tables.length === 0) throw new Error("ما في طاولات لطباعتها");
 

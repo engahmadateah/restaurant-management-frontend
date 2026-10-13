@@ -14,7 +14,7 @@ function beep() {
   try {
     const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     const ctx = new Ctx();
-    // نغمتين قصار - واضحة بالمطبخ بدون ما تكون مزعجة
+ 
     [880, 1175].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -30,14 +30,11 @@ function beep() {
     });
     setTimeout(() => ctx.close(), 800);
   } catch {
-    // المتصفح ممكن يمنع الصوت قبل أول تفاعل من المستخدم - منتجاهل بصمت
+
   }
 }
 
-/**
- * تنبيه صوتي لما يوصل طلب جديد بقائمة الانتظار. أول تحميل للصفحة ما بيطلّع صوت
- * (بس بيسجّل الطلبات الموجودة)، وبعدها أي id جديد بيعمل نغمة.
- */
+
 export function useNewOrderAlert(pendingIds: number[] | undefined) {
   const [enabled, setEnabled] = useState(readEnabled);
   const seen = useRef<Set<number> | null>(null);
@@ -59,9 +56,9 @@ export function useNewOrderAlert(pendingIds: number[] | undefined) {
       try {
         localStorage.setItem(STORAGE_KEY, next ? "1" : "0");
       } catch {
-        // نتجاهل - التفضيل بس ما رح ينحفظ
+  
       }
-      if (next) beep(); // تجربة فورية للصوت عند التفعيل
+      if (next) beep();
       return next;
     });
   }, []);

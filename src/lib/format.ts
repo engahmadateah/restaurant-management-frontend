@@ -1,11 +1,6 @@
 import { getSetting } from "@/stores/settingsStore";
 
-/**
- * تنسيق العملة — رمز العملة الافتراضي يُقرأ الآن من إعدادات النظام
- * (شاشة الإعدادات -> رمز العملة)، وبيرجع لـ "د.أ" فقط إذا الإعدادات
- * لسا ما انحملت أو الحقل فاضي. فينك دايمًا تمرر عملة مختلفة يدويًا
- * عبر البارامتر الثاني إذا احتجت هيك بحالة خاصة.
- */
+
 export function formatCurrency(value: number | string, currency?: string) {
   const num = typeof value === "string" ? parseFloat(value) : value;
   const formatted = new Intl.NumberFormat("en-US", {

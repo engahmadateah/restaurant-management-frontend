@@ -27,7 +27,6 @@ export function Topbar({ onMenuClick, onSearchClick }: { onMenuClick?: () => voi
     try {
       await authApi.logout();
     } catch {
-      // نتابع بتسجيل الخروج محلياً حتى لو فشل الطلب
     } finally {
       clear();
       navigate("/login", { replace: true });

@@ -11,7 +11,6 @@ interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-/** بحث سريع بالصفحات (Ctrl+K): بيعرض بس الصفحات يلي المستخدم عنده صلاحية إلها. */
 export function CommandPalette({ open, onOpenChange }: Props) {
   const navigate = useNavigate();
   const { hasAnyPermission } = usePermissions();
@@ -26,7 +25,6 @@ export function CommandPalette({ open, onOpenChange }: Props) {
           .filter((item) => !item.permission || hasAnyPermission(item.permission))
           .map((item) => ({ ...item, section: section.title }))
       ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [hasAnyPermission]
   );
 

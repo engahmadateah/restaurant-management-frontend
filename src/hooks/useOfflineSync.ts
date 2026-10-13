@@ -6,11 +6,7 @@ import { useOfflineQueue } from "@/stores/offlineQueueStore";
 
 const RETRY_INTERVAL_MS = 30_000;
 
-/**
- * بيرسل طلبات الـ POS المحفوظة على الجهاز لما يرجع الاتصال. بيشتغل بكل صفحات الإدارة (AdminLayout):
- * عند الفتح، وعند حدث "online"، وكل 30 ثانية طالما في طلبات معلّقة، وعند رجوع التاب للواجهة.
- * الإرسال الفعلي والأمان من التكرار: lib/offlineQueue.ts + stores/offlineQueueStore.ts
- */
+
 export function useOfflineSync() {
   const queryClient = useQueryClient();
   const userId = useAuthStore((s) => s.user?.id);

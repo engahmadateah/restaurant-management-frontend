@@ -8,16 +8,12 @@ import { getApiErrorMessage } from "@/api/client";
 import { usePermissions } from "@/hooks/usePermissions";
 import { formatTime } from "@/lib/format";
 
-/**
- * زر حضور/انصراف سريع بالشريط العلوي - الموظف ما بحتاج يفتح صفحة الورديات
- * كل مرة. بيشتغل لأي موظف عنده صلاحية shifts.manage_own.
- */
+
 export function ClockButton() {
   const queryClient = useQueryClient();
   const { user, hasPermission } = usePermissions();
   const allowed = hasPermission("shifts.manage_own");
 
-  // آخر ٧ أيام بتكفي للقاء وردية مفتوحة (حتى لو ورديّة ليلية عبرت منتصف الليل)
   const { data: shifts } = useQuery({
     queryKey: ["shifts", "my-open", user?.id],
     queryFn: () => shiftsApi.list({ user_id: user!.id, from: format(subDays(new Date(), 7), "yyyy-MM-dd") }),

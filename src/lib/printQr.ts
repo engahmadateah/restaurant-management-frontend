@@ -1,18 +1,14 @@
 import { qrSvgMarkup } from "./qr";
 
 export interface QrCard {
-  /** العنوان الكبير (رقم الطاولة أو "اطلب أونلاين") */
   title: string;
-  /** سطر صغير فوق (مثلاً: امسح للطلب) */
   subtitle: string;
-  /** الرابط يلي بيفتحه الـ QR (بينعرض كمان نص صغير تحته) */
   url: string;
 }
 
 const ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ESCAPES[c]);
 
-/** مستند HTML جاهز للطباعة (A4، بطاقتين بالصف). كل النصوص بتنعمل لها escape. */
 export function buildQrPrintHtml(cards: QrCard[], restaurantName: string): string {
   const body = cards
     .map(
@@ -52,7 +48,6 @@ export function buildQrPrintHtml(cards: QrCard[], restaurantName: string): strin
 </html>`;
 }
 
-/** افتح نافذة طباعة فوراً (لازم تنادى مباشرة من ضغطة زر وإلا المتصفح بيمنعها) وبعدين عبّيها */
 export function openPrintWindow(): Window | null {
   const w = window.open("", "_blank");
   if (w) w.document.write('<p dir="rtl" style="font-family:sans-serif;padding:24px">جارِ تحضير الملصقات...</p>');

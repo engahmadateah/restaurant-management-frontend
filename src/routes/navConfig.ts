@@ -31,7 +31,7 @@ export interface NavItem {
   label: string;
   to: string;
   icon: ComponentType<{ className?: string }>;
-  // مصفوفة = أي وحدة منهم تكفي (متل permission:a,b بالباك)
+
   permission?: Permission | Permission[];
 }
 

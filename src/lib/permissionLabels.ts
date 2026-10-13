@@ -1,6 +1,6 @@
 import type { Permission } from "@/types/auth";
 
-// تسمية عربية لكل صلاحية دقيقة - لازم تبقى مطابقة لـ config/permissions.php['all'] بالباك اند.
+
 export const PERMISSION_LABELS: Record<Permission, string> = {
   "reports.view": "عرض التقارير",
   "reports.export": "تصدير التقارير",
@@ -33,7 +33,7 @@ export const PERMISSION_LABELS: Record<Permission, string> = {
   "drawer.manage_all": "إدارة كل الصناديق (عرض/إغلاق عن الغير)",
 };
 
-// تجميع الصلاحيات لمجموعات منطقية بواجهة تعديل صلاحيات الموظف
+
 export const PERMISSION_GROUPS: { title: string; permissions: Permission[] }[] = [
   {
     title: "الطلبات والفواتير",
@@ -58,6 +58,6 @@ export const PERMISSION_GROUPS: { title: string; permissions: Permission[] }[] =
       "payroll.manage",
     ],
   },
-  // إدارة الموظفين (users.manage) admin فقط بالباك، فما بتنعرض هون كصلاحية قابلة للمنح
+  
   { title: "الإدارة العامة", permissions: ["settings.manage", "audit.view"] },
 ];

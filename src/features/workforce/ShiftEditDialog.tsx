@@ -19,10 +19,6 @@ import type { Shift } from "@/types/models";
 
 const toInput = (iso: string) => format(new Date(iso), "yyyy-MM-dd'T'HH:mm");
 
-/**
- * تصحيح أوقات وردية (للمدير). الحالة الأساسية: وردية انسكرت تلقائياً لأن الموظف نسي الانصراف،
- * والمدير بيكتب وقت الانصراف الحقيقي قبل ما تنحسب بالراتب.
- */
 export function ShiftEditDialog({
   shift,
   onOpenChange,
@@ -41,7 +37,7 @@ export function ShiftEditDialog({
   useEffect(() => {
     if (shift) {
       setClockIn(toInput(shift.clock_in));
-      // الوردية المفتوحة ما إلها انصراف: منبدأ من الوقت الحالي
+
       setClockOut(toInput(shift.clock_out ?? new Date().toISOString()));
       setNotes(shift.notes ?? "");
     }

@@ -23,8 +23,7 @@ const ALL_EMPLOYEES = "all";
 
 const ymd = (d: Date) => format(d, "yyyy-MM-dd");
 
-// اختصارات الفترة. النهاية دايماً <= اليوم (الباك بيرفض فترة ما خلصت)، والبداية الأسبوع بتبدأ الإثنين
-// حسب أسبوع ISO يلي بتعتمد عليه حسبة الوقت الإضافي.
+
 function quickPeriods(today = new Date()) {
   const lastMonth = subMonths(today, 1);
   const thisWeekStart = startOfWeek(today, { weekStartsOn: 1 });

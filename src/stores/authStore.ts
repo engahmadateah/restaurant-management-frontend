@@ -20,7 +20,7 @@ export const useAuthStore = create<AuthState>()(
       clear: () => set({ user: null, token: null }),
     }),
     {
-      name: "zeitoun-auth", // مفتاح التخزين بـ localStorage
+      name: "zeitoun-auth", 
     }
   )
 );

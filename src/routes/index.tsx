@@ -37,14 +37,11 @@ const WorkforcePage = lazy(() => import("@/features/workforce/WorkforcePage"));
 const PaymentsPage = lazy(() => import("@/features/payments/PaymentsPage"));
 const CouponsPage = lazy(() => import("@/features/coupons/CouponsPage"));
 const CurrenciesPage = lazy(() => import("@/features/currencies/CurrenciesPage"));
-// صفحات الزبون العامة (بدون تسجيل دخول): قائمة QR الطاولة، الطلب الأونلاين، تتبّع الطلب
 const PublicMenuPage = lazy(() => import("@/features/public/PublicMenuPage"));
 const PublicTrackPage = lazy(() => import("@/features/public/PublicTrackPage"));
 
 const router = createBrowserRouter([
   {
-    // errorElement هون بيغطي أي خطأ يصير بأي صفحة تحت الفرعين التحت (تسجيل
-    // الدخول ولوحة التحكم) - شوف شرح كامل بملف RouteErrorFallback.tsx
     errorElement: <RouteErrorFallback />,
     children: [
       {
@@ -56,7 +53,6 @@ const router = createBrowserRouter([
         ],
       },
       {
-        // خارج ProtectedRoute: الزبون ما عنده حساب. (/menu محجوز للوحة الإدارة، فالأونلاين على /order)
         element: <PublicLayout />,
         children: [
           { path: "/t/:token", element: <PublicMenuPage mode="table" /> },
@@ -68,7 +64,6 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            // صفحة إجبارية لموظف انعملّه حساب جديد (أو انصفّرت كلمة سره): بنفس شكل صفحة الدخول وبدون القائمة الجانبية
             element: <AuthLayout />,
             children: [{ path: FORCE_PASSWORD_PATH, element: <ForcePasswordChangePage /> }],
           },
@@ -135,8 +130,7 @@ const router = createBrowserRouter([
                   </RequirePermission>
                 ),
               },
-              // الباك: قراءة الكوبونات = orders.view، والإضافة/التعديل/الحذف = coupons.manage
-              // (أزرار الكتابة مخفية داخل الصفحة لمن ما عنده coupons.manage)
+            
               { path: "/payments", element: <RequirePermission permission="orders.manage"><PaymentsPage /></RequirePermission> },
               { path: "/coupons", element: <RequirePermission permission="orders.manage"><CouponsPage /></RequirePermission> },
               {
@@ -147,8 +141,7 @@ const router = createBrowserRouter([
                   </RequirePermission>
                 ),
               },
-              // إدارة العملات محصورة بـ role:admin بالباك اند، فبنستخدم صلاحية
-              // settings.manage (نفس صفحة الإعدادات) لأنها الوحيدة يلي الأدمن بس فيه فيها افتراضيًا
+   
               {
                 path: "/currencies",
                 element: (
@@ -157,9 +150,7 @@ const router = createBrowserRouter([
                   </RequirePermission>
                 ),
               },
-              // أي مستخدم مسجل دخول فيه يشوف الصفحة ويطلب استرجاع/يشوف التقييمات
-              // (متل ما محدد بالباك اند بـ routes/api.php)، بس أزرار الموافقة/الرفض
-              // والحذف بتظهر بس لصاحب صلاحية refunds.approve / reviews.approve
+     
               { path: "/refunds", element: <RequirePermission permission={["orders.manage", "refunds.approve"]}><RefundsPage /></RequirePermission> },
               { path: "/reviews", element: <RequirePermission permission={["orders.manage", "reviews.approve"]}><ReviewsPage /></RequirePermission> },
               { path: "/workforce", element: <WorkforcePage /> },

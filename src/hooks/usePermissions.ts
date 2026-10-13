@@ -1,8 +1,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import type { Permission, UserRole } from "@/types/auth";
 
-// نفس config/permissions.php['defaults'] بالباك اند - لازم تبقى متطابقة.
-// لو ضفت صلاحية جديدة بالباك اند لازم تنعكس هون كمان.
+
 const ROLE_DEFAULTS: Record<UserRole, Permission[] | ["*"]> = {
   admin: ["*"],
   manager: [
@@ -43,7 +42,6 @@ function checkPermission(
   return effective.has(permission);
 }
 
-/** بيرجع دالة hasPermission(permission) للمستخدم الحالي المسجل دخوله. */
 export function usePermissions() {
   const user = useAuthStore((s) => s.user);
 
@@ -52,7 +50,7 @@ export function usePermissions() {
     return checkPermission(user.role, user.extra_permissions, user.revoked_permissions, permission);
   };
 
-  // صلاحية وحدة أو أكتر (أي وحدة منهم تكفي) - نفس منطق middleware permission:a,b بالباك
+ 
   const hasAnyPermission = (permission: Permission | Permission[]): boolean =>
     (Array.isArray(permission) ? permission : [permission]).some(hasPermission);
 

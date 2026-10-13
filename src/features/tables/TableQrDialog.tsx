@@ -12,10 +12,10 @@ import { openPrintWindow, writeQrPrintWindow } from "@/lib/printQr";
 import { getSetting, useSettingsStore } from "@/stores/settingsStore";
 import type { RestaurantTable } from "@/types/models";
 
-/** رابط الطلب من هالطاولة. بنبنيه من عنوان الصفحة الحالي (نفس الدومين تبع الفرونت) */
+
 export const tableOrderUrl = (token: string) => `${window.location.origin}/t/${token}`;
 
-/** QR الطاولة: عرض، طباعة، تحميل SVG، وتغيير الرمز لو انكشف */
+
 export function TableQrDialog({ table, onOpenChange }: { table: RestaurantTable | null; onOpenChange: (open: boolean) => void }) {
   const queryClient = useQueryClient();
   const [confirmRotate, setConfirmRotate] = useState(false);

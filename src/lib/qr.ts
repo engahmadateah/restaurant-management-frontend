@@ -1,15 +1,12 @@
 import qrcodegen from "./vendor/qrcodegen.js";
 
-/**
- * مولّد QR (مكتبة Project Nayuki بترخيص MIT، منسوخة بـ lib/vendor/qrcodegen.js بدون أي dependency).
- * بيرجّع SVG جاهز: مستوى تصحيح أخطاء M (بيتحمّل ~15% تلف/اتساخ) و4 وحدات هامش (الحد الأدنى للقراءة).
- */
+
 export interface QrSvg {
-  /** عدد الوحدات بالضلع (بدون الهامش) */
+ 
   size: number;
-  /** viewBox كامل بالهامش */
+
   viewBox: string;
-  /** مسار SVG واحد لكل الوحدات السودا */
+
   path: string;
 }
 
@@ -27,7 +24,6 @@ export function buildQr(text: string): QrSvg {
   return { size: qr.size, viewBox: `0 0 ${total} ${total}`, path: parts.join(" ") };
 }
 
-/** نص SVG كامل (للطباعة/التحميل): خلفية بيضا وQR أسود */
 export function qrSvgMarkup(text: string, pixelSize = 240): string {
   const { viewBox, path } = buildQr(text);
   return (

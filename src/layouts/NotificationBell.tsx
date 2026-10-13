@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { notificationsApi } from "@/api/notifications";
 
-/** جرس الإشعارات بالشريط العلوي مع عدّاد غير المقروء (بيتحدّث كل ٣٠ ثانية). */
 export function NotificationBell() {
   const navigate = useNavigate();
   const { data } = useQuery({

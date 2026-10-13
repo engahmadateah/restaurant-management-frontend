@@ -1,5 +1,4 @@
-// ترجمات الاسم/الوصف بلغات تانية غير العربي (الافتراضي) - شوف
-// app/Traits/HasTranslations.php بالباك اند
+
 export interface Translations {
   en?: { name?: string; description?: string };
 }
@@ -10,8 +9,7 @@ export interface Category {
   slug: string;
   is_active: boolean;
   sort_order: number;
-  // ضريبة خاصة بهاد التصنيف (0-1). لو null، منستخدم النسبة العامة من الإعدادات
-  // (شوف MenuItem::effectiveTaxRate بالباك اند)
+
   tax_rate: string | null;
   translations: Translations | null;
   created_at: string;
@@ -24,8 +22,8 @@ export interface MenuItem {
   category?: Category;
   name: string;
   description: string | null;
-  price: string; // decimal:2 -> بترجع string من Laravel
-  // ضريبة خاصة بهاد الصنف (0-1). لو null، منستخدم ضريبة التصنيف وإلا العامة
+  price: string; 
+ 
   tax_rate: string | null;
   translations: Translations | null;
   image: string | null;
@@ -69,8 +67,7 @@ export interface RestaurantTable {
   table_number: string;
   capacity: number;
   status: TableStatus;
-  // حقول خطة الطاولات المرئية (Floor Plan) - كلها اختيارية لأن الطاولة
-  // ممكن تكون لسا ما انحطت على أي خطة (floor_id فاضي)
+  
   floor_id: number | null;
   pos_x: number | null;
   pos_y: number | null;
@@ -114,7 +111,7 @@ export type OrderType = "dine_in" | "takeaway" | "delivery";
 export type OrderSource = "pos" | "qr" | "online";
 export type OrderStatus = "pending" | "preparing" | "ready" | "completed" | "cancelled";
 export type PaymentStatus = "unpaid" | "partial" | "paid" | "refunded";
-// "cancelled": الباك بيحط هالقيمة لطلب توصيل انلغى (قبل كان يضل pending/assigned للأبد)
+
 export type DeliveryStatus = "not_applicable" | "pending" | "assigned" | "out_for_delivery" | "delivered" | "cancelled";
 export type PaymentMethod = "cash" | "card" | "online";
 
@@ -123,7 +120,7 @@ export interface Payment {
   order_id: number;
   method: PaymentMethod;
   amount: string;
-  // نقدي فقط (null للبطاقة/الإلكتروني وللدفعات المعلّقة)
+  
   tendered_amount?: string | null;
   change_amount?: string | null;
   status: "pending" | "paid" | "refunded";
@@ -199,10 +196,8 @@ export interface Order {
   table?: RestaurantTable;
   customer_id: number | null;
   customer?: Customer;
-  // null = طلب عام من الزبون (QR/أونلاين) بدون موظف
   user_id: number | null;
   coupon_id: number | null;
-  // من وين جا الطلب: pos = الكاشير، qr = من طاولة، online = أونلاين
   source?: OrderSource;
   order_type: OrderType;
   status: OrderStatus;
@@ -288,7 +283,6 @@ export interface Shift {
   user?: { id: number; name: string; role: import("./auth").UserRole };
   clock_in: string;
   clock_out: string | null;
-  // انسكرت تلقائياً لأن الموظف نسي الانصراف (بتحتاج مراجعة المدير)
   auto_closed?: boolean;
   notes: string | null;
   created_at: string;
@@ -376,10 +370,8 @@ export interface StaffUser {
   role: import("./auth").UserRole;
   phone: string | null;
   is_active: boolean;
-  // true = لسا ما غيّر كلمة السر المؤقتة يلي حطها الأدمن
   must_change_password?: boolean;
-  // إعدادات الراتب - هاد هو المصدر يلي بيعتمد عليه PayrollCalculator بالباك اند
-  // لما تولّد كشف راتب (شوف app/Services/PayrollCalculator.php)
+
   salary_type: SalaryType;
   hourly_rate: string | null;
   monthly_salary: string | null;

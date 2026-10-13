@@ -10,10 +10,8 @@ const LOCK_NAME = "zeitoun-offline-sync";
 
 interface OfflineQueueState {
   entries: QueuedOrder[];
-  // الحالة التالية مؤقتة (مش بتنحفظ)
   syncing: boolean;
   lastStop: FailureKind | null;
-  /** طلبات انتزامنت هالجلسة: بتخلّي بطاقة الـ POS تعرض رقم الطلب الحقيقي */
   synced: Record<string, { orderNumber: string; total: number; paid: boolean }>;
 
   enqueue: (entry: QueuedOrder) => boolean;
@@ -23,7 +21,6 @@ interface OfflineQueueState {
   sync: (userId: number) => Promise<SyncResult | null>;
 }
 
-/** هل الإدخال انكتب فعلاً بالتخزين المحلي؟ (quota ممتلئ/وضع خاص = فشل صامت، وضياع طلب هو أسوأ نتيجة) */
 function isPersisted(id: string): boolean {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -46,18 +43,14 @@ export const useOfflineQueue = create<OfflineQueueState>()(
           set((s) => ({ entries: [...s.entries, entry] }));
           if (isPersisted(entry.id)) return true;
         } catch {
-          // التخزين المحلي رفض الكتابة (ممتلئ/وضع خاص): نفس معالجة "ما انحفظ" تحت
         }
-        // ما انحفظ: لا نخلّي الكاشير يظن إن الطلب مضمون
         try {
           set((s) => ({ entries: s.entries.filter((e) => e.id !== entry.id) }));
         } catch {
-          // الحالة بالذاكرة اتحدّثت قبل فشل الكتابة، فما في شي إضافي نعمله
         }
         return false;
       },
 
-      // مرة وحدة وقبل ما يبلّش إرسال الطلب (حتى مفتاح الدفعة يضل مطابق للمحتوى)
       setPayment: (id, method) =>
         set((s) => ({
           entries: s.entries.map((e) =>
@@ -109,8 +102,7 @@ export const useOfflineQueue = create<OfflineQueueState>()(
           }
         };
 
-        // أكتر من تاب مفتوح: قفل على مستوى المتصفح حتى ما يشتغلوا مرتين بنفس الوقت
-        // (حتى بدون القفل التكرار مستحيل بفضل الـ Idempotency-Key، بس هيك أنظف)
+       
         const locks = typeof navigator !== "undefined" ? navigator.locks : undefined;
         if (locks?.request) {
           return locks.request(LOCK_NAME, { ifAvailable: true }, (lock) => (lock ? run() : Promise.resolve(null)));
@@ -126,7 +118,7 @@ export const useOfflineQueue = create<OfflineQueueState>()(
   )
 );
 
-// تاب تاني غيّر الطابور: حدّث نسختنا
+
 if (typeof window !== "undefined") {
   window.addEventListener("storage", (e) => {
     if (e.key === STORAGE_KEY) void useOfflineQueue.persist.rehydrate();

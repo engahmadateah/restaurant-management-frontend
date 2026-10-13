@@ -17,10 +17,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// بيحمّل الإعدادات العامة مرة وحدة (وبيعيد التحميل تلقائيًا كل ما
-// تتغيّر نتيجة الاستعلام بمفتاح "settings" - يعني لما صفحة الإعدادات
-// تحفظ وتعمل invalidateQueries، هاد المكون بيلتقط القيم الجديدة
-// وبيحدّث الـ store المركزي يلي كل التطبيق عم يقرأ منه).
+
 function SettingsLoader() {
   const token = useAuthStore((s) => s.token);
   const setSettings = useSettingsStore((s) => s.setSettings);
@@ -28,7 +25,7 @@ function SettingsLoader() {
   const { data } = useQuery({
     queryKey: ["settings"],
     queryFn: settingsApi.get,
-    enabled: !!token, // ما تجيب الإعدادات إلا بعد تسجيل الدخول (المسار محمي)
+    enabled: !!token,
   });
 
   useEffect(() => {

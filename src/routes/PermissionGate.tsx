@@ -10,7 +10,7 @@ interface PermissionGateProps {
   children: ReactNode;
 }
 
-/** يخفي/يظهر أي جزء بالواجهة حسب صلاحية أو دور المستخدم الحالي. */
+
 export function PermissionGate({ permission, role, fallback = null, children }: PermissionGateProps) {
   const { hasPermission, hasRole } = usePermissions();
 
@@ -23,12 +23,12 @@ export function PermissionGate({ permission, role, fallback = null, children }: 
   return <>{children}</>;
 }
 
-/** حماية على مستوى الراوت كامل - بيرجع لصفحة "غير مصرح" إذا ما في صلاحية. */
+
 export function RequirePermission({
   permission,
   children,
 }: {
-  permission: Permission | Permission[]; // مصفوفة = أي وحدة تكفي
+  permission: Permission | Permission[]; 
   children: ReactNode;
 }) {
   const { hasAnyPermission } = usePermissions();

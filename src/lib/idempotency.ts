@@ -1,15 +1,8 @@
-/**
- * مفاتيح Idempotency للطلبات يلي بتغيّر مال (إنشاء طلب، تسجيل دفعة).
- *
- * الفكرة: كل "نيّة" (طلب بهالمحتوى، دفعة بهالمبلغ) إلها مفتاح ثابت. لو الطلب فشل بسبب
- * النت والكاشير ضغط مرة تانية، بنبعت نفس المفتاح فالسيرفر بيرجّع النتيجة الأولى بدل ما ينفّذ
- * العملية مرتين. لو تغيّر المحتوى (عدّل السلة مثلاً) بنولّد مفتاح جديد. وبعد النجاح
- * بنعمل reset() حتى العملية الجاية تاخد مفتاح جديد.
- */
+
 
 export function newIdempotencyKey(): string {
   const c = typeof crypto !== "undefined" ? crypto : undefined;
-  // randomUUID بس بالـ https/localhost: كاشير شغّال على http بالشبكة المحلية لازم يلاقي بديل
+
   if (c && typeof c.randomUUID === "function") return c.randomUUID();
   if (c && typeof c.getRandomValues === "function") {
     const bytes = c.getRandomValues(new Uint8Array(16));
@@ -19,9 +12,9 @@ export function newIdempotencyKey(): string {
 }
 
 export interface IdempotencyKeeper {
-  /** نفس المفتاح طالما نفس المحتوى، ومفتاح جديد لما يتغيّر */
+ 
   keyFor: (payload: unknown) => string;
-  /** استدعيه بعد النجاح */
+
   reset: () => void;
 }
 
@@ -42,7 +35,7 @@ export function createIdempotencyKeeper(): IdempotencyKeeper {
   };
 }
 
-/** هيدر جاهز للـ axios */
+
 export function idempotencyHeaders(key?: string) {
   return key ? { "Idempotency-Key": key } : undefined;
 }

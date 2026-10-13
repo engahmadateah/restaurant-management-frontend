@@ -39,7 +39,7 @@ export function AttendanceTab() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [note, setNote] = useState("");
-  // المنسية: الورديات يلي انسكرت تلقائياً وبدها مراجعة المدير
+  
   const [needsReview, setNeedsReview] = useState(false);
   const [editing, setEditing] = useState<Shift | null>(null);
 
@@ -80,7 +80,7 @@ export function AttendanceTab() {
   const clockOutMutation = useMutation({
     mutationFn: () => shiftsApi.clockOut(note || undefined),
     onSuccess: (shift) => {
-      // نسي الانصراف: الوردية انسكرت عند الحد الأقصى مش عند هلأ، والمدير رح يراجعها
+
       if (shift.auto_closed) toast.warning("كانت ورديتك مفتوحة أكتر من المسموح، فانسكرت عند الحد الأقصى. المدير رح يراجعها.");
       else toast.success("تم تسجيل الانصراف");
       setNote("");

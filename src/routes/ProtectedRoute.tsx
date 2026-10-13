@@ -12,12 +12,10 @@ export function ProtectedRoute() {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // موظف لسا عنده كلمة سر مؤقتة: ما بيشوف أي صفحة غير صفحة تغيير كلمة السر
   if (mustChangePassword && location.pathname !== FORCE_PASSWORD_PATH) {
     return <Navigate to={FORCE_PASSWORD_PATH} replace />;
   }
 
-  // وبعد ما يغيّرها ما في سبب يضل بهالصفحة
   if (!mustChangePassword && location.pathname === FORCE_PASSWORD_PATH) {
     return <Navigate to="/" replace />;
   }

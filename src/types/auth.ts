@@ -1,6 +1,5 @@
 export type UserRole = "admin" | "manager" | "cashier" | "waiter" | "chef" | "driver";
 
-// مطابقة لـ config/permissions.php -> 'all'. (users.manage استثناء: admin فقط بالباك، ما بتتعطى من واجهة الصلاحيات)
 export type Permission =
   | "reports.view"
   | "reports.export"
@@ -39,7 +38,6 @@ export interface User {
   role: UserRole;
   phone: string | null;
   is_active: boolean;
-  // true = الموظف لازم يغيّر كلمة السر المؤقتة قبل ما يدخل النظام
   must_change_password?: boolean;
   extra_permissions: Permission[] | null;
   revoked_permissions: Permission[] | null;
